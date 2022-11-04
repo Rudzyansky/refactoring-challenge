@@ -1,7 +1,7 @@
-package com.example.refaktoring.api
+package com.example.refaktoring.data.api
 
-import com.example.refaktoring.pojo.CoinInfoListOfData
-import com.example.refaktoring.pojo.CoinPriceInfoRawData
+import com.example.refaktoring.data.pojo.CoinInfoListOfData
+import com.example.refaktoring.data.pojo.CoinPriceInfoRawData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,21 +1,22 @@
-package com.example.refaktoring
+package com.example.refaktoring.presentation.viewmodel
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.refaktoring.api.ApiFactory
-import com.example.refaktoring.database.AppDatabase
-import com.example.refaktoring.pojo.CoinPriceInfo
-import com.example.refaktoring.pojo.CoinPriceInfoRawData
+import androidx.lifecycle.ViewModel
+import com.example.refaktoring.data.api.ApiService
+import com.example.refaktoring.data.database.AppDatabase
+import com.example.refaktoring.data.pojo.CoinPriceInfo
+import com.example.refaktoring.data.pojo.CoinPriceInfoRawData
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class CoinViewModel(application: Application) : AndroidViewModel(application) {
+class CoinViewModel(
+    private val db: AppDatabase,
+    private val apiService: ApiService
+) : ViewModel() {
 
-    private val db = AppDatabase.getInstance(application)
     private val compositeDisposable = CompositeDisposable()
 
     val priceList = db.coinPriceInfoDao().getPriceList()
@@ -29,9 +30,9 @@ class CoinViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun loadData() {
-        val disposable = ApiFactory.apiService.getTopCoinsInfo(limit = 50)
+        val disposable = apiService.getTopCoinsInfo(limit = 50)
             .map { it.data?.map { it.coinInfo?.name }?.joinToString(",") }
-            .flatMap { ApiFactory.apiService.getFullPriceList(fSyms = it) }
+            .flatMap { apiService.getFullPriceList(fSyms = it) }
             .map { getPriceListFromRawData(it) }
             .delaySubscription(10, TimeUnit.SECONDS)
             .repeat()

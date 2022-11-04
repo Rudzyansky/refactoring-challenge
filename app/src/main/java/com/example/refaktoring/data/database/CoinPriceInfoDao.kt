@@ -1,11 +1,11 @@
-package com.example.refaktoring.database
+package com.example.refaktoring.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.refaktoring.pojo.CoinPriceInfo
+import com.example.refaktoring.data.pojo.CoinPriceInfo
 
 @Dao
 interface CoinPriceInfoDao {

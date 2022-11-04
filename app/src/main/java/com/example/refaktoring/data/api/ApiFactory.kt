@@ -1,4 +1,4 @@
-package com.example.refaktoring.api
+package com.example.refaktoring.data.api
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -9,11 +9,11 @@ object ApiFactory {
     private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
     const val BASE_IMAGE_URL = "https://cryptocompare.com"
 
-    private val retrofit = Retrofit.Builder()
+    fun newRetrofitInstance(): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .baseUrl(BASE_URL)
         .build()
 
-    val apiService = retrofit.create(ApiService::class.java)
+    fun Retrofit.apiService(): ApiService = create(ApiService::class.java)
 }

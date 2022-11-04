@@ -1,4 +1,4 @@
-package com.example.refaktoring.pojo
+package com.example.refaktoring.data.pojo
 
 import com.google.gson.JsonObject
 import com.google.gson.annotations.Expose

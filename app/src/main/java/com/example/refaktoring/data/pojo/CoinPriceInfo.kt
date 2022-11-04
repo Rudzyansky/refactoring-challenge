@@ -1,9 +1,9 @@
-package com.example.refaktoring.pojo
+package com.example.refaktoring.data.pojo
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.refaktoring.api.ApiFactory.BASE_IMAGE_URL
-import com.example.refaktoring.utils.convertTimestampToTime
+import com.example.refaktoring.data.api.ApiFactory.BASE_IMAGE_URL
+import com.example.refaktoring.data.utils.convertTimestampToTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
