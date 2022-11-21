@@ -1,4 +1,4 @@
-package com.example.refaktoring.data.utils
+package com.example.refaktoring.domain.util
 
 import java.sql.Timestamp
 import java.text.SimpleDateFormat

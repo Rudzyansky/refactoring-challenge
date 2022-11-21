@@ -5,22 +5,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.refaktoring.R
-import com.example.refaktoring.data.pojo.CoinPriceInfo
+import com.example.refaktoring.domain.CoinPriceInfoDomain
 import com.example.refaktoring.databinding.ItemCoinInfoBinding
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
     RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
 
-    var coinInfoList: List<CoinPriceInfo> = listOf()
+    var coinInfoList: List<CoinPriceInfoDomain> = listOf()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    private var onClickListener: (CoinPriceInfo) -> Unit = {}
+    private var onClickListener: (CoinPriceInfoDomain) -> Unit = {}
 
-    fun setOnClickListener(listener: (CoinPriceInfo) -> Unit) {
+    fun setOnClickListener(listener: (CoinPriceInfoDomain) -> Unit) {
         onClickListener = listener
     }
 

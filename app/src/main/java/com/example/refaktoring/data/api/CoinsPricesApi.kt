@@ -2,25 +2,25 @@ package com.example.refaktoring.data.api
 
 import com.example.refaktoring.data.pojo.CoinInfoListOfData
 import com.example.refaktoring.data.pojo.CoinPriceInfoRawData
-import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiService {
+interface CoinsPricesApi {
 
     @GET("top/totalvolfull")
-    fun getTopCoinsInfo(
+    suspend fun getTopCoinsInfo(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
         @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY
-    ): Single<CoinInfoListOfData>
+    ): Response<CoinInfoListOfData>
 
     @GET("pricemultifull")
-    fun getFullPriceList(
+    suspend fun getFullPriceList(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
         @Query(QUERY_PARAM_FROM_SYMBOLS) fSyms: String,
         @Query(QUERY_PARAM_TO_SYMBOLS) tSyms: String = CURRENCY
-    ): Single<CoinPriceInfoRawData>
+    ): Response<CoinPriceInfoRawData>
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "api_key"

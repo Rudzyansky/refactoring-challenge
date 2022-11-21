@@ -1,9 +1,13 @@
 package com.example.refaktoring.di
 
-import com.example.refaktoring.data.api.ApiFactory
-import com.example.refaktoring.data.api.ApiFactory.apiService
+import com.example.refaktoring.data.api.CoinsPricesApi
+import com.example.refaktoring.data.api.RetrofitHelper
 import com.example.refaktoring.data.database.AppDatabase
-import com.example.refaktoring.presentation.viewmodel.CoinViewModel
+import com.example.refaktoring.data.implementation.CoinRepositoryImpl
+import com.example.refaktoring.data.service.DataLoader
+import com.example.refaktoring.domain.CoinRepository
+import com.example.refaktoring.presentation.viewmodel.CoinDetailViewModel
+import com.example.refaktoring.presentation.viewmodel.CoinPriceListViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
@@ -14,11 +18,13 @@ val appModule = module {
     single { AppDatabase.newInstance(androidContext()) }
     single { get<AppDatabase>().coinPriceInfoDao() }
 
-    single { ApiFactory.newRetrofitInstance() }
-    single { get<Retrofit>().apiService() }
+    single { RetrofitHelper.newInstance() }
+    single { get<Retrofit>().create(CoinsPricesApi::class.java) }
 
-//    single { SettingsRepositoryRoom(get()) } bind SettingsRepository::class
-//    single { GuessTheWordRepositoryInMemory() } bind GuessTheWordRepository::class
+    single { DataLoader(get(), get()) }
 
-    viewModel { CoinViewModel(get(), get()) }
+    single { CoinRepositoryImpl(get()) } bind CoinRepository::class
+
+    viewModel { CoinPriceListViewModel(get()) }
+    viewModel { CoinDetailViewModel(get()) }
 }
